@@ -370,3 +370,10 @@ a {
 .nav-links a.active {
     background: #bcdff5;
 }
+
+.content-box{
+    background:#e0e0e0;
+    padding:30px;
+    margin:30px 0;
+    border-radius:16px;
+}
