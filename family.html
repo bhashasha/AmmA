@@ -84,8 +84,149 @@
 
 </section>
 
+<!-- 🌸 AMMA JI MESSAGE WALL -->
+<section class="amma-wall">
 
-    </section>
+    <h2>अम्मा जी के लिए परिवार के संदेश</h2>
+    <p class="wall-subtitle">
+        परिवार के सदस्यों द्वारा प्रेम, स्मृति और सम्मान के साथ लिखे गए शब्द
+    </p>
+
+    <div class="wall-form">
+        <select id="name">
+            <option value="">नाम चुनें</option>
+            <option>सरोज</option>
+            <option>भानु</option>
+            <option>राखी</option>
+            <option>रवि</option>
+            <option>रेखा</option>
+            <option>साशा</option>
+            <option>पेबल</option>
+            <option>पुरु</option>
+            <option>योयो</option>
+        </select>
+
+        <textarea id="message" rows="4"
+            placeholder="अम्मा जी के लिए अपने मन की बात लिखें…"></textarea>
+
+        <button onclick="addMessage()">संदेश जोड़ें</button>
+    </div>
+
+    <div class="wall-messages" id="messages"></div>
+
+</section>
+
+<style>
+.amma-wall {
+    background: #f9faf8;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.amma-wall h2 {
+    font-size: 2rem;
+    margin-bottom: 6px;
+}
+
+.wall-subtitle {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.wall-form {
+    max-width: 520px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.wall-form select,
+.wall-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    font-size: 1rem;
+}
+
+.wall-form button {
+    margin-top: 15px;
+    background: #5f8f6d;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.wall-messages {
+    max-width: 600px;
+    margin: 40px auto 0;
+    text-align: left;
+}
+
+.message-item {
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.message-item strong {
+    font-size: 1.05rem;
+}
+
+.message-item small {
+    display: block;
+    color: #777;
+    margin-bottom: 8px;
+}
+</style>
+
+<script>
+let messages = JSON.parse(localStorage.getItem("ammaMessages")) || [];
+
+function addMessage() {
+    let name = document.getElementById("name").value;
+    let text = document.getElementById("message").value;
+
+    if (name === "" || text === "") {
+        alert("कृपया नाम और संदेश दोनों भरें");
+        return;
+    }
+
+    let date = new Date().toLocaleDateString("hi-IN", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
+
+    messages.push({ name, text, date });
+    localStorage.setItem("ammaMessages", JSON.stringify(messages));
+
+    document.getElementById("message").value = "";
+    showMessages();
+}
+
+function showMessages() {
+    let box = document.getElementById("messages");
+    box.innerHTML = "";
+
+    messages.forEach(m => {
+        box.innerHTML += `
+        <div class="message-item">
+            <strong>${m.name}</strong>
+            <small>${m.date}</small>
+            <p>${m.text}</p>
+        </div>`;
+    });
+}
+
+showMessages();
+</script>
+
+
 
     <!-- Footer -->
     <footer class="footer">
